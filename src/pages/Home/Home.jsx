@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Home.module.css';
-import magnifyingGlass from '/Users/osint/Documents/clst/frontend/translation/src/global/images/magnifying-glass 1.svg'; // Adjust the path accordingly
+import magnifyingGlass from '../../global/images/magnifying-glass 1.svg'; // Adjust the path accordingly
 
 const Home = () => {
   const [query, setQuery] = useState('');
@@ -53,13 +53,17 @@ const Home = () => {
             results.map((result) => (
               <div key={result.id} className={styles['result-item']}>
                 <h2>{result.title}</h2>
-                <p>{result.body.substring(0, 100)}...</p> {/* Show a preview of the body */}
+                <p>{result.body.substring(0, 300)}...</p> {/* Show a preview of the body */}
                 <details>
                   <summary>View details</summary>
-                  <p>{result.body}</p>
+                  <div className={styles['full-text']}>
+                    {result.body.split('\n').map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
                 </details>
                 <p><strong>Document Name:</strong> {result.doc_name}</p>
-                {/* <p><strong>Score:</strong> {result.score}</p> */}
+                <p><strong>Score:</strong> {result.score}</p>
               </div>
             ))
           ) : (
